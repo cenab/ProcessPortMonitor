@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='processportmonitor',
-    version='0.1.0',
+    version='0.1.2',
     author='Cenab Batu Bora',
     author_email='batu.bora.tech@gmail.com',
     description='Real-time monitoring of active TCP ports used by a specific process (PID)',
