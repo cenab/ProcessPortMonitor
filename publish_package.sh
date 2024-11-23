@@ -27,16 +27,6 @@ check_status() {
     fi
 }
 
-# Install required packages
-echo "Installing required packages..."
-$PYTHON -m pip install --upgrade pip build twine
-check_status "Install dependencies"
-
-# Clean old builds
-echo "Cleaning old build artifacts..."
-rm -rf build/ dist/ *.egg-info
-check_status "Clean old builds"
-
 # Extract version from setup.py using grep
 VERSION=$(grep -E "version='[^']*'" setup.py | cut -d"'" -f2)
 
@@ -53,31 +43,15 @@ if git rev-parse "v$VERSION" >/dev/null 2>&1; then
     exit 1
 fi
 
-# Build the package
-echo "Building package..."
-$PYTHON -m build
-check_status "Build package"
-
-# Add all changes
-echo "Adding all changes..."
-git add .
-check_status "Git add"
-
-# Commit changes
-echo "Committing changes..."
-git commit -m "Prepare for version $VERSION release"
-check_status "Git commit"
-
 # Create and push tag
 echo "Creating tag v$VERSION..."
 git tag -a "v$VERSION" -m "Version $VERSION"
 check_status "Create tag"
 
-# Push changes and tag
-echo "Pushing changes and tag..."
-git push origin main
+# Push tag
+echo "Pushing tag..."
 git push origin "v$VERSION"
-check_status "Push to main and tag"
+check_status "Push tag"
 
-echo -e "${GREEN}Package preparation complete!${NC}"
+echo -e "${GREEN}Tag v$VERSION created and pushed successfully!${NC}"
 echo -e "${YELLOW}Now create a release on GitHub with tag v$VERSION to trigger PyPI publication${NC}"
