@@ -1,7 +1,6 @@
 # ProcessPortMonitor
 
 **ProcessPortMonitor** is a Python package that allows you to monitor active TCP ports used by a specific process (PID) in real-time. It provides both a command-line interface (CLI) and an importable module for integration into your Python scripts. The package can asynchronously track port changes, trigger callbacks when changes occur, and maintain a history of port activity with timestamps.
-
 ---
 
 ## Table of Contents
