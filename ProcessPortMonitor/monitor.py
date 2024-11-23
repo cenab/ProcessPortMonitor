@@ -4,9 +4,12 @@ import threading
 import time
 from datetime import datetime
 
-class PortMonitor:
+class ProcessPortMonitor:
     """
-    Monitors active ports for a specific PID.
+    Monitors active TCP ports for a specific process ID (PID) in real-time.
+    
+    This class provides functionality to track port changes, maintain history,
+    and trigger callbacks when port status changes occur.
     """
 
     def __init__(self, pid, interval=1.0, callback=None):
@@ -28,7 +31,15 @@ class PortMonitor:
 
     def retrieve_active_ports(self):
         """
-        Retrieve the current active ports for the PID.
+        Retrieve the current active TCP ports for the PID.
+
+        Returns:
+            set: A set of active port numbers
+        
+        Raises:
+            subprocess.SubprocessError: If the lsof command fails
+            ValueError: If port parsing fails
+            FileNotFoundError: If lsof is not installed
         """
         try:
             lsof_cmd = [
@@ -39,30 +50,41 @@ class PortMonitor:
                 '-a',
                 '-p', str(self.pid)
             ]
-            result = subprocess.run(lsof_cmd, capture_output=True, text=True)
+            result = subprocess.run(lsof_cmd, capture_output=True, text=True, check=True)
             output = result.stdout
 
+            if not output.strip():
+                return set()
+
             # Parse output with jc
-            connections = jc.parse('lsof', output)
+            try:
+                connections = jc.parse('lsof', output)
+            except Exception as e:
+                raise ValueError(f"Failed to parse lsof output: {str(e)}")
 
             ports = set()
             for conn in connections:
                 local_address = conn.get('name', '')
-                # Extract local port
-                if '->' in local_address:
-                    local_part = local_address.split('->')[0]
-                    if ':' in local_part:
-                        local_port = local_part.rsplit(':', 1)[-1]
+                try:
+                    if '->' in local_address:
+                        local_part = local_address.split('->')[0]
+                        if ':' in local_part:
+                            local_port = local_part.rsplit(':', 1)[-1]
+                            if local_port.isdigit():
+                                ports.add(int(local_port))
+                    elif ':' in local_address:
+                        local_port = local_address.rsplit(':', 1)[-1]
                         if local_port.isdigit():
                             ports.add(int(local_port))
-                elif ':' in local_address:
-                    local_port = local_address.rsplit(':', 1)[-1]
-                    if local_port.isdigit():
-                        ports.add(int(local_port))
+                except Exception as e:
+                    raise ValueError(f"Failed to parse port from address {local_address}: {str(e)}")
             return ports
-        except Exception:
-            # Handle exceptions if needed
-            return set()
+        except FileNotFoundError:
+            raise FileNotFoundError("lsof command not found. Please install lsof package.")
+        except subprocess.SubprocessError as e:
+            raise subprocess.SubprocessError(f"Failed to execute lsof command: {str(e)}")
+        except Exception as e:
+            raise RuntimeError(f"Unexpected error while retrieving ports: {str(e)}")
 
     def start(self):
         """

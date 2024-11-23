@@ -1,6 +1,6 @@
-# PortMonitor
+# ProcessPortMonitor
 
-**PortMonitor** is a Python package that allows you to monitor active TCP ports used by a specific process (PID) in real-time. It provides both a command-line interface (CLI) and an importable module for integration into your Python scripts. The package can asynchronously track port changes, trigger callbacks when changes occur, and maintain a history of port activity with timestamps.
+**ProcessPortMonitor** is a Python package that allows you to monitor active TCP ports used by a specific process (PID) in real-time. It provides both a command-line interface (CLI) and an importable module for integration into your Python scripts. The package can asynchronously track port changes, trigger callbacks when changes occur, and maintain a history of port activity with timestamps.
 
 ---
 
@@ -47,7 +47,7 @@
 ### Install Using `pip`
 
 ```bash
-pip3 install portmonitor
+pip3 install ProcessPortMonitor
 ```
 
 Alternatively, you can install from source:
@@ -55,13 +55,13 @@ Alternatively, you can install from source:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/portmonitor.git
+   git clone https://github.com/yourusername/ProcessPortMonitor.git
    ```
 
 2. **Navigate to the Package Directory**
 
    ```bash
-   cd portmonitor
+   cd ProcessPortMonitor
    ```
 
 3. **Install the Package**
@@ -78,10 +78,10 @@ Alternatively, you can install from source:
 
 #### Basic Usage
 
-Run `portmonitor` followed by the PID of the process you wish to monitor. You may need to run the command with `sudo` to have the necessary permissions.
+Run `ProcessPortMonitor` followed by the PID of the process you wish to monitor. You may need to run the command with `sudo` to have the necessary permissions.
 
 ```bash
-sudo portmonitor <PID>
+sudo ProcessPortMonitor <PID>
 ```
 
 #### Options
@@ -89,13 +89,13 @@ sudo portmonitor <PID>
 - `--interval INTERVAL`: Set the monitoring interval in seconds (default is 1.0 second).
 
 ```bash
-sudo portmonitor <PID> --interval 0.5
+sudo ProcessPortMonitor <PID> --interval 0.5
 ```
 
 #### Example
 
 ```bash
-sudo portmonitor 16609 --interval 1
+sudo ProcessPortMonitor 16609 --interval 1
 ```
 
 **Output:**
@@ -114,10 +114,10 @@ Active ports: {50390}
 
 #### Basic Usage (Module)
 
-Import the `PortMonitor` class into your Python script and create an instance to monitor a specific PID.
+Import the `ProcessPortMonitor` class into your Python script and create an instance to monitor a specific PID.
 
 ```python
-from portmonitor import PortMonitor
+from ProcessPortMonitor import ProcessPortMonitor
 import time
 
 def my_callback(new_ports, closed_ports, active_ports, port_history):
@@ -129,7 +129,7 @@ def my_callback(new_ports, closed_ports, active_ports, port_history):
     # You can also process active_ports and port_history as needed
 
 pid_to_monitor = 16609  # Replace with the actual PID
-monitor = PortMonitor(pid_to_monitor, interval=1.0, callback=my_callback)
+monitor = ProcessPortMonitor(pid_to_monitor, interval=1.0, callback=my_callback)
 monitor.start()
 
 try:
@@ -164,7 +164,7 @@ def my_callback(new_ports, closed_ports, active_ports, port_history):
 
 #### Accessing Port History
 
-The `port_history` attribute of the `PortMonitor` instance stores the history of port changes.
+The `port_history` attribute of the `ProcessPortMonitor` instance stores the history of port changes.
 
 ```python
 # Access the port history
@@ -188,7 +188,7 @@ Each entry in `port_history` is a dictionary:
 ### Example CLI Session
 
 ```bash
-sudo portmonitor 12345 --interval 0.5
+sudo ProcessPortMonitor 12345 --interval 0.5
 ```
 
 **Output:**
@@ -204,7 +204,7 @@ Active ports: set()
 ### Example Python Script
 
 ```python
-from portmonitor import PortMonitor
+from ProcessPortMonitor import ProcessPortMonitor
 import time
 
 def log_port_changes(new_ports, closed_ports, active_ports, port_history):
@@ -215,7 +215,7 @@ def log_port_changes(new_ports, closed_ports, active_ports, port_history):
     print(f"[=] Current ports: {active_ports}")
 
 pid = 12345
-monitor = PortMonitor(pid, interval=0.5, callback=log_port_changes)
+monitor = ProcessPortMonitor(pid, interval=0.5, callback=log_port_changes)
 monitor.start()
 
 try:
@@ -248,7 +248,7 @@ except KeyboardInterrupt:
 
 ## License
 
-**PortMonitor** is released under the [MIT License](https://opensource.org/licenses/MIT).
+**ProcessPortMonitor** is released under the [MIT License](https://opensource.org/licenses/MIT).
 
 ---
 
@@ -260,4 +260,4 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 
 ## Contact
 
-For questions or support, please open an issue on the [GitHub repository](https://github.com/cenab/portmonitor) or contact the maintainer at [batu.bora.tech@gmail.com](mailto:batu.bora.tech@gmail.com).
+For questions or support, please open an issue on the [GitHub repository](https://github.com/cenab/ProcessPortMonitor) or contact the maintainer at [batu.bora.tech@gmail.com](mailto:batu.bora.tech@gmail.com).
