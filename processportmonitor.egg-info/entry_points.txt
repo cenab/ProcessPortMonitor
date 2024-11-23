@@ -1,2 +1,0 @@
-[console_scripts]
-processportmonitor = processportmonitor.__main__:main

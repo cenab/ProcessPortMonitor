@@ -1,0 +1,34 @@
+# Python build artifacts
+*.egg-info/
+*.egg
+dist/
+build/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Distribution
+*.tar.gz
+*.whl
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
