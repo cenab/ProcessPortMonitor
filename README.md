@@ -88,10 +88,10 @@ Alternatively, you can install from source:
 
 #### Basic Usage
 
-Run `ProcessPortMonitor` followed by the PID of the process you wish to monitor. You may need to run the command with `sudo` to have the necessary permissions.
+Run `processportmonitor` followed by the PID of the process you wish to monitor. You may need to run the command with `sudo` to have the necessary permissions.
 
 ```bash
-sudo ProcessPortMonitor <PID>
+sudo processportmonitor <PID>
 ```
 
 #### Options
@@ -99,13 +99,13 @@ sudo ProcessPortMonitor <PID>
 - `--interval INTERVAL`: Set the monitoring interval in seconds (default is 1.0 second).
 
 ```bash
-sudo ProcessPortMonitor <PID> --interval 0.5
+sudo processportmonitor <PID> --interval 0.5
 ```
 
 #### Example
 
 ```bash
-sudo ProcessPortMonitor 16609 --interval 1
+sudo processportmonitor 16609 --interval 1
 ```
 
 **Output:**
@@ -198,7 +198,7 @@ Each entry in `port_history` is a dictionary:
 ### Example CLI Session
 
 ```bash
-sudo ProcessPortMonitor 12345 --interval 0.5
+sudo processportmonitor 12345 --interval 0.5
 ```
 
 **Output:**
@@ -258,7 +258,7 @@ except KeyboardInterrupt:
 
 ## License
 
-**ProcessPortMonitor** is released under the [MIT License](https://opensource.org/licenses/MIT).
+**processportmonitor** is released under the [MIT License](https://opensource.org/licenses/MIT).
 
 ---
 
@@ -270,4 +270,4 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 
 ## Contact
 
-For questions or support, please open an issue on the [GitHub repository](https://github.com/cenab/ProcessPortMonitor) or contact the maintainer at [batu.bora.tech@gmail.com](mailto:batu.bora.tech@gmail.com).
+For questions or support, please open an issue on the [GitHub repository](https://github.com/cenab/processportmonitor) or contact the maintainer at [batu.bora.tech@gmail.com](mailto:batu.bora.tech@gmail.com).
