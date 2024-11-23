@@ -43,9 +43,27 @@ echo "Pushing to develop branch for TestPyPI..."
 git push origin develop --force
 check_status "Push to develop"
 
+# Function to increment version
+increment_version() {
+    local version=$1
+    local major minor patch
+    IFS='.' read -r major minor patch <<< "$version"
+    patch=$((patch + 1))
+    echo "$major.$minor.$patch"
+}
+
 # Create and push tag for PyPI
 echo "Creating new version tag..."
-VERSION=$(python3 -c "import setup; print(setup.VERSION)" 2>/dev/null || echo "0.1.0")
+BASE_VERSION=$(python3 -c "import setup; print(setup.VERSION)" 2>/dev/null || echo "0.1.0")
+VERSION=$BASE_VERSION
+
+# Keep incrementing version until we find one that doesn't exist
+while git rev-parse "v$VERSION" >/dev/null 2>&1; do
+    echo -e "${YELLOW}Version v$VERSION already exists, incrementing...${NC}"
+    VERSION=$(increment_version "$VERSION")
+done
+
+echo "Using version: v$VERSION"
 git tag -a "v${VERSION}" -m "Release version ${VERSION}"
 check_status "Create tag"
 
