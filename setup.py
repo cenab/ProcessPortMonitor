@@ -3,14 +3,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='ProcessPortMonitor',
+    name='processportmonitor',
     version='0.1.0',
     author='Cenab Batu Bora',
     author_email='batu.bora.tech@gmail.com',
     description='Real-time monitoring of active TCP ports used by a specific process (PID)',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/cenab/ProcessPortMonitor',
+    url='https://github.com/cenab/processportmonitor',
     packages=find_packages(),
     install_requires=[
         'jc>=1.12',
@@ -33,7 +33,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'ProcessPortMonitor=ProcessPortMonitor.__main__:main',
+            'processportmonitor=processportmonitor.__main__:main',
         ],
     },
     python_requires='>=3.6',
