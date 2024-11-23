@@ -1,6 +1,6 @@
-# ProcessPortMonitor
+# processportmonitor
 
-**ProcessPortMonitor** is a Python package that allows you to monitor active TCP ports used by a specific process (PID) in real-time. It provides both a command-line interface (CLI) and an importable module for integration into your Python scripts. The package can asynchronously track port changes, trigger callbacks when changes occur, and maintain a history of port activity with timestamps.
+**processportmonitor** is a Python package that allows you to monitor active TCP ports used by a specific process (PID) in real-time. It provides both a command-line interface (CLI) and an importable module for integration into your Python scripts.
 
 ---
 
@@ -47,7 +47,17 @@
 ### Install Using `pip`
 
 ```bash
-pip3 install ProcessPortMonitor
+pip install processportmonitor
+```
+
+To upgrade to the latest version:
+```bash
+pip install --upgrade processportmonitor
+```
+
+For system-wide installation (may require sudo):
+```bash
+sudo pip install processportmonitor
 ```
 
 Alternatively, you can install from source:
@@ -55,19 +65,19 @@ Alternatively, you can install from source:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/ProcessPortMonitor.git
+   git clone https://github.com/cenab/processportmonitor.git
    ```
 
 2. **Navigate to the Package Directory**
 
    ```bash
-   cd ProcessPortMonitor
+   cd processportmonitor
    ```
 
 3. **Install the Package**
 
    ```bash
-   pip3 install .
+   pip install .
    ```
 
 ---
@@ -114,10 +124,10 @@ Active ports: {50390}
 
 #### Basic Usage (Module)
 
-Import the `ProcessPortMonitor` class into your Python script and create an instance to monitor a specific PID.
+Import the `ProcessPortMonitor` class into your Python script:
 
 ```python
-from ProcessPortMonitor import ProcessPortMonitor
+from processportmonitor import ProcessPortMonitor
 import time
 
 def my_callback(new_ports, closed_ports, active_ports, port_history):
@@ -204,7 +214,7 @@ Active ports: set()
 ### Example Python Script
 
 ```python
-from ProcessPortMonitor import ProcessPortMonitor
+from processportmonitor import ProcessPortMonitor
 import time
 
 def log_port_changes(new_ports, closed_ports, active_ports, port_history):
