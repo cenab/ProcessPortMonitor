@@ -37,8 +37,14 @@ echo "Cleaning old build artifacts..."
 rm -rf build/ dist/ *.egg-info
 check_status "Clean old builds"
 
-# Extract version from setup.py
-VERSION=$($PYTHON -c "from setuptools import setup; setup()" 2>&1 | grep -o "version='[^']*'" | cut -d"'" -f2)
+# Extract version from setup.py using grep
+VERSION=$(grep -E "version='[^']*'" setup.py | cut -d"'" -f2)
+
+if [ -z "$VERSION" ]; then
+    echo -e "${RED}Error: Could not extract version from setup.py${NC}"
+    exit 1
+fi
+
 echo -e "${GREEN}Publishing version: ${VERSION}${NC}"
 
 # Check if tag already exists
