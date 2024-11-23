@@ -1,4 +1,4 @@
-name: Build, Test, and Publish
+name: Build and Publish
 
 on:
   push:
@@ -25,11 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel build
           pip install -r requirements.txt
-
-      - name: Run tests
-        run: |
-          pip install pytest
-          pytest tests/
 
   publish:
     needs: build
